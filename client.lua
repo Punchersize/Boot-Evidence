@@ -95,7 +95,7 @@ Citizen.CreateThread(function()
         Citizen.Wait(0)
 
         if IsPlayerBehindVehicle() then
-            if IsControlJustPressed(1, 51) then -- "E" button
+            if IsControlJustPressed(1, 74) then -- "H" button
                 mainMenu:Visible(not mainMenu:Visible())
             end
         end
