@@ -11,17 +11,15 @@ function IsPlayerBehindVehicle()
     local rayHandle = StartShapeTestRay(playerCoords.x, playerCoords.y, playerCoords.z, inFrontOfVeh.x, inFrontOfVeh.y, inFrontOfVeh.z, 10, playerPed, 0)
     local _, _, _, _, vehicle = GetShapeTestResult(rayHandle)
 
-    if IsEntityAVehicle(vehicle) and IsEntityAtCoord(vehicle, inFrontOfVeh.x, inFrontOfVeh.y, inFrontOfVeh.z, 3.0, 3.0, 2.0, 0, 1, 0) then
-        local bootBoneIndex = GetEntityBoneIndexByName(vehicle, "boot") -- Use "boot" for the trunk bone name, adjust if needed
-        if bootBoneIndex ~= -1 then
-            local trunkCoords = GetWorldPositionOfEntityBone(vehicle, bootBoneIndex)
-            local playerForwardVector = vector3(GetEntityForwardX(playerPed), GetEntityForwardY(playerPed), 0.0)
-            local vectorToTrunk = vector3(trunkCoords.x - playerCoords.x, trunkCoords.y - playerCoords.y, 0.0)
-            local angle = math.deg(math.abs(math.atan2(vectorToTrunk.y, vectorToTrunk.x) - math.atan2(playerForwardVector.y, playerForwardVector.x)))
-            if GetVehicleClass(vehicle) == 18 then
+    if GetVehicleClass(vehicle) == 18 then
+        if IsEntityAVehicle(vehicle) and IsEntityAtCoord(vehicle, inFrontOfVeh.x, inFrontOfVeh.y, inFrontOfVeh.z, 3.0, 3.0, 2.0, 0, 1, 0) then
+            local bootBoneIndex = GetEntityBoneIndexByName(vehicle, "boot") -- Use "boot" for the trunk bone name, adjust if needed
+            if bootBoneIndex ~= -1 then
+                local trunkCoords = GetWorldPositionOfEntityBone(vehicle, bootBoneIndex)
+                local playerForwardVector = vector3(GetEntityForwardX(playerPed), GetEntityForwardY(playerPed), 0.0)
+                local vectorToTrunk = vector3(trunkCoords.x - playerCoords.x, trunkCoords.y - playerCoords.y, 0.0)
+                local angle = math.deg(math.abs(math.atan2(vectorToTrunk.y, vectorToTrunk.x) - math.atan2(playerForwardVector.y, playerForwardVector.x)))
                 return angle <= 90 or angle >= 270 -- Adjust this angle range as needed
-            else
-                return false
             end
         end
     end
@@ -113,4 +111,3 @@ function notify(text)
     AddTextComponentString(text)
     DrawNotification(true, true)
 end
-
