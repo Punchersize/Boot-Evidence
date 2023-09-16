@@ -10,3 +10,5 @@ client_scripts {
     "@NativeUI/NativeUI.lua",
     "client.lua"
 }
+
+dependency 'NativeUI'
