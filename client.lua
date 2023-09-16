@@ -18,7 +18,11 @@ function IsPlayerBehindVehicle()
             local playerForwardVector = vector3(GetEntityForwardX(playerPed), GetEntityForwardY(playerPed), 0.0)
             local vectorToTrunk = vector3(trunkCoords.x - playerCoords.x, trunkCoords.y - playerCoords.y, 0.0)
             local angle = math.deg(math.abs(math.atan2(vectorToTrunk.y, vectorToTrunk.x) - math.atan2(playerForwardVector.y, playerForwardVector.x)))
-            return angle <= 90 or angle >= 270 -- Adjust this angle range as needed
+            if GetVehicleClass(vehicle) = 18 then
+                return angle <= 90 or angle >= 270 -- Adjust this angle range as needed
+            else
+                return false
+            end
         end
     end
 
